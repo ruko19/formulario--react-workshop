@@ -1,9 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import BtnSubmit from './BtnSubmit'
+import IconError from '../img/icon-error.svg'
+import ShowData from './ShowData'
+
+
+
 
 const Form = () => {
+    const [arrayData, setArrayData] = useState([])
+
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+
+    const onSubmit = (data) => {
+        setArrayData([...arrayData, data]);
+        reset();
+
+    }
 
 
+    console.log(arrayData);
 
     return (
         <>
@@ -12,30 +28,57 @@ const Form = () => {
                     <span>Pruebalo gratis 7 dias</span> y luego $ 20 /mes a partir de entonces
                 </p>
 
-                <form className='form__contacto'>
+                <form onSubmit={handleSubmit(onSubmit)} className='form__contacto'>
 
                     <div className="form-group">
-                        <input type="text" name='nombre' className='form__imputs' placeholder='Nombre' />
-                        <img alt="" />
-                        <p className='mensaje-error'>El nombre no puede estar vacio</p>
+                        <input {...register('nombre', { required: true })} type="text" className='form__imputs' placeholder='Nombre' />
+                        {errors.nombre?.type === 'required' &&
+
+                            <div>
+                                <p className='mensaje-error'>El nombre no puede estar vacio</p>
+                                <img className='error-icon' src={IconError} alt="" />
+                            </div>
+                        }
+
+
+
                     </div>
 
                     <div className="form-group">
-                        <input type="text" name='nombre' className='form__imputs' placeholder='Apellido' />
-                        <img alt="" />
-                        <p className='mensaje-error'>El nombre no puede estar vacio</p>
+                        <input {...register('apellido', { required: true })} type="text" name='apellido' className='form__imputs' placeholder='Apellido' />
+                        {errors.apellido?.type === 'required' &&
+
+                            <div>
+                                <p className='mensaje-error'>El apellido no puede estar vacio</p>
+                                <img className='error-icon' src={IconError} alt="" />
+
+                            </div>
+                        }
+
                     </div>
 
                     <div className="form-group">
-                        <input type="text" name='nombre' className='form__imputs' placeholder='Email' />
-                        <img alt="" />
-                        <p className='mensaje-error'>El nombre no puede estar vacio</p>
+                        <input {...register('email', { required: true })} type="text" name='email' className='form__imputs' placeholder='Email' />
+                        {errors.email?.type === 'required' &&
+                            <div>
+
+                                <p className='mensaje-error'>El Email no puede estar vacio</p>
+                                <img className='error-icon' src={IconError} alt="" />
+                            </div>
+                        }
+
                     </div>
 
                     <div className="form-group">
-                        <input type="text" name='nombre' className='form__imputs' placeholder='Contraseña' />
-                        <img alt="" />
-                        <p className='mensaje-error'>El nombre no puede estar vacio</p>
+                        <input {...register('contraseña', { required: true })} type="text" name='contraseña' className='form__imputs' placeholder='Contraseña' />
+                        {errors.contraseña?.type &&
+                            <div>
+                                <p className='mensaje-error'>La contraseña no puede estar vacio</p>
+                                <img className='error-icon' src={IconError} alt="" />
+
+                            </div>
+                        }
+
                     </div>
 
                     <BtnSubmit />
@@ -45,6 +88,8 @@ const Form = () => {
                     </p>
 
                 </form>
+
+                <ShowData arrayData={arrayData} />
 
 
 

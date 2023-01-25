@@ -5,15 +5,8 @@ import Form from './Form'
 const App = () => {
     return (
         <main>
-
             <TextLeft />
             <Form />
-
-
-
-
-
-
         </main>
     )
 }
