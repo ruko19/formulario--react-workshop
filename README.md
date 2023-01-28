@@ -6,7 +6,7 @@
 
 Development:
 
-1.`npm install` Instala paquete de node
+1.`npm install` Instala paquete de node <br>
 2.`npm run dev` Desplegarlo al servidor local.
 
 
